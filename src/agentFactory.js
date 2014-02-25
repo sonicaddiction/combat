@@ -6,6 +6,7 @@ function getFighter (name) {
 	fighter.type = 'fighter';
 
 	fighter.learnAction(ActionFactory.performAttack(fighter));
+	fighter.learnAction(ActionFactory.performBlock(fighter));
 
 	return fighter;
 }

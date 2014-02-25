@@ -1,17 +1,20 @@
 var Action = require('../action');
 
+/*
+ * .performAttack.on(defender).with(weapon)
+ */
+
 function performAttack(attacker) {
 	var action = new Action('performAttack', attacker);
 
-	action.on = function (name) {
-		action.defender = name;
+	action.on = function (defender) {
+		action.defender = defender;
+		return action;
+	};
 
-		return {
-			with: function (weapon) {
-				action.weapon = weapon;
-				return action;
-			}
-		};
+	action.with = function (weapon) {
+		action.weapon = weapon;
+		return action;
 	};
 
 	action.perform = function () {
@@ -24,6 +27,8 @@ function performAttack(attacker) {
 		}
 
 		console.log(action.performer.name, 'attacks', action.defender.name, 'with', action.weapon);
+
+		return action;
 	};
 
 	return action;
