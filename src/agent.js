@@ -5,10 +5,12 @@ var Agent = function (id, name, hp) {
 	this.id = id;
 	this.hp = hp;
 	this.actions = {};
+	this.skills = {};
 };
 
-Agent.prototype.learnAction = function (action) {
+Agent.prototype.learnAction = function (action, skillValue) {
 	this.actions[action.name] = action;
+	this.skills[action.name] = skillValue;
 };
 
 module.exports = {

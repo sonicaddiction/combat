@@ -18,6 +18,8 @@ Engine.prototype.queueAction = function (action) {
 Engine.prototype.step = function () {
 	var currentAction = this.actionQueue.shift();
 
+
+
 	currentAction.perform();
 };
 

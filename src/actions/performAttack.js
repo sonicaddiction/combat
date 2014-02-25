@@ -17,7 +17,7 @@ function performAttack(attacker) {
 		return action;
 	};
 
-	action.perform = function () {
+	action.success = function () {
 		if (!action.defender) {
 			throw new Error('use the on() function');
 		}
@@ -31,7 +31,11 @@ function performAttack(attacker) {
 		return action;
 	};
 
+	action.fail = function () {
+		console.log(action.performer.name, 'attacks', action.defender.name, 'with', action.weapon, 'but misses');
+	};
+
 	return action;
-};
+}
 
 module.exports = performAttack;
