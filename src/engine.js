@@ -1,6 +1,7 @@
 var Engine = function () {
 	this.agents = {};
-}
+	this.actionQueue = [];
+};
 
 Engine.prototype.addAgent = function (agent) {
 	if (this.agents[agent]) {
@@ -8,6 +9,10 @@ Engine.prototype.addAgent = function (agent) {
 	} else {
 		this.agents[agent.id] = agent;
 	}
-}
+};
+
+Engine.prototype.queueAction = function () {
+
+};
 
 module.exports = Engine;

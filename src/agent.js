@@ -9,7 +9,7 @@ var Agent = function (id, name, hp) {
 
 Agent.prototype.learnAction = function (action) {
 	this.actions[action.name] = action;
-}
+};
 
 module.exports = {
 	getAgent: function (name, hp) {

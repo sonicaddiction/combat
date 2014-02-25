@@ -8,7 +8,7 @@ function getFighter (name) {
 	fighter.learnAction(ActionFactory.performAttack(fighter));
 
 	return fighter;
-};
+}
 
 module.exports = {
 	getFighter: getFighter

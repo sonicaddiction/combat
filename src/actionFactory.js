@@ -6,7 +6,7 @@ function performAttack (attacker) {
 	});
 
 	return action;
-};
+}
 
 module.exports = {
 	performAttack: performAttack
