@@ -1,4 +1,4 @@
-var performAttack = require('./actions/performAttack.js').performAttack;
+var performAttack = require('./actions/performAttack.js');
 
 module.exports = {
 	performAttack: performAttack

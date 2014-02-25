@@ -1,6 +1,6 @@
 var Action = require('../action');
 
-exports.performAttack = function (attacker) {
+function performAttack(attacker) {
 	var action = new Action('performAttack', attacker);
 
 	action.on = function (name) {
@@ -28,3 +28,5 @@ exports.performAttack = function (attacker) {
 
 	return action;
 };
+
+module.exports = performAttack;
