@@ -1,5 +1,5 @@
-var Engine = require('./engine.js'),
-	AgentFactory = require('./agentFactory.js'),
+var Engine = require('./src/engine.js'),
+	AgentFactory = require('./src/agentFactory.js'),
 	agents = [],
 	engine = new Engine;
 
