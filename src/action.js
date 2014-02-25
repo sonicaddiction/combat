@@ -1,6 +1,6 @@
-var Action = function (name, on) {
+var Action = function (name, performer) {
 	this.name = name;
-	this.on = on;
+	this.performer = performer;
 };
 
 module.exports = Action;

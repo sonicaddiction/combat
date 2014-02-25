@@ -1,7 +1,8 @@
 var Engine = require('./src/engine.js'),
 	AgentFactory = require('./src/agentFactory.js'),
 	agents = [],
-	engine = new Engine;
+	engine = new Engine(),
+	action;
 
 agents.push(AgentFactory.getFighter('Krill'));
 agents.push(AgentFactory.getFighter('Rogert'));
@@ -10,4 +11,6 @@ agents.forEach(function (agent) {
 	engine.addAgent(agent);
 });
 
-engine.queueAction(agents[0].actions.performAttack.on(agents[1]));
+action = agents[0].actions.performAttack.on(agents[1]).with('a sword');
+
+action.perform();

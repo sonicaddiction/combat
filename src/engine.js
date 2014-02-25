@@ -11,8 +11,14 @@ Engine.prototype.addAgent = function (agent) {
 	}
 };
 
-Engine.prototype.queueAction = function () {
+Engine.prototype.queueAction = function (action) {
+	this.actionQueue.push(action);
+};
 
+Engine.prototype.step = function () {
+	var currentAction = this.actionQueue.pop();
+
+	currentAction();
 };
 
 module.exports = Engine;

@@ -13,6 +13,6 @@ Agent.prototype.learnAction = function (action) {
 
 module.exports = {
 	getAgent: function (name, hp) {
-		return new Agent(currentId++, name, hp)
+		return new Agent(currentId++, name, hp);
 	}
 };
