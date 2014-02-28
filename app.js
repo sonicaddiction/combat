@@ -1,10 +1,13 @@
 var di = require('ng-di').di,
 	injector;
 
-require('./src/agentFactory.js');
+require('./src/agent.js');
 
-injector = di.injector(['combat.agent-factory']);
+injector = di.injector(['combat.agent']);
 
-injector.invoke(function (getFighter) {
-	console.log(getFighter('Kristofer'));
+injector.invoke(function (getAgent) {
+	console.log(getAgent('Krill', 10));
+	console.log(getAgent('Krill2', 10));
+	console.log(getAgent('Krill2', 10));
+	console.log(getAgent('Krill2', 10));
 });

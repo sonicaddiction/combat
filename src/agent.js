@@ -1,20 +1,24 @@
-var currentId = 0;
+var di = require('ng-di').di;
 
-var Agent = function (id, name, hp) {
-	this.name = name;
-	this.id = id;
-	this.hp = hp;
-	this.actions = {};
-	this.skills = {};
-};
+di.module('combat.agent', [])
 
-Agent.prototype.learnAction = function (action, skillValue) {
-	this.actions[action.name] = action;
-	this.skills[action.name] = skillValue;
-};
+	.value('currentId', 0)
 
-module.exports = {
-	getAgent: function (name, hp) {
-		return new Agent(currentId++, name, hp);
-	}
-};
+	.factory('getAgent', function (currentId) {
+		var Agent = function (id, name, hp) {
+			this.name = name;
+			this.id = id;
+			this.hp = hp;
+			this.actions = {};
+			this.skills = {};
+		};
+
+		Agent.prototype.learnAction = function (action, skillValue) {
+			this.actions[action.name] = action;
+			this.skills[action.name] = skillValue;
+		};
+
+		return function (name, hp) {
+			return new Agent(currentId++, name, hp);
+		};
+	});
