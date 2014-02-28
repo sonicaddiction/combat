@@ -1,0 +1,12 @@
+{
+  "name": "combat-engine",
+  "description": "Simple combat engine",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sonicaddiction/combat.git"
+  },
+  "dependencies": {
+    "jasmine-node": "~1.13.1"
+  }
+}
