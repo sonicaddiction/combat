@@ -7,6 +7,6 @@
     "url": "https://github.com/sonicaddiction/combat.git"
   },
   "dependencies": {
-    "ng-di": "0.0.2"
+    "ng-di": "*"
   }
 }
