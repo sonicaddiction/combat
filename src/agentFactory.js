@@ -1,16 +1,17 @@
-var Agent = require('./agent.js'),
+var di = require('ng-di').di,
+	Agent = require('./agent.js'),
 	ActionFactory = require('./actionFactory.js');
 
-function getFighter (name) {
-	var fighter = Agent.getAgent(name, 10);
-	fighter.type = 'fighter';
+di.module('combat.agent-factory', [])
 
-	fighter.learnAction(ActionFactory.performAttack(fighter), 60);
-	fighter.learnAction(ActionFactory.performBlock(fighter), 50);
+	.factory('getFighter', function () {
+		return function (name) {
+			var fighter = Agent.getAgent(name, 10);
+			fighter.type = 'fighter';
 
-	return fighter;
-}
+//	fighter.learnAction(ActionFactory.performAttack(fighter), 60);
+//	fighter.learnAction(ActionFactory.performBlock(fighter), 50);
 
-module.exports = {
-	getFighter: getFighter
-};
+			return fighter;
+		};
+	});
