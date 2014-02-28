@@ -1,19 +1,10 @@
-var Engine = require('./src/engine.js'),
-	AgentFactory = require('./src/agentFactory.js'),
-	agents = [],
-	engine = new Engine(),
-	action;
+var di = require('ng-di').di,
+	injector;
 
-agents.push(AgentFactory.getFighter('Krill'));
-agents.push(AgentFactory.getFighter('Rogert'));
+require('./src/dice');
 
-agents.forEach(function (agent) {
-	engine.addAgent(agent);
+injector = di.injector(['combat.dice']);
+
+injector.invoke(function (d6) {
+	console.log("val:", d6);
 });
-
-//engine.queueAction(agents[0].actions.performAttack.on(agents[1]).with('a sword'));
-engine.queueAction(action = agents[1].actions.performBlock.from(agents[0]).with('a sword'));
-
-while(engine.actionQueue.length) {
-	engine.step();
-}
