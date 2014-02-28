@@ -1,26 +1,32 @@
-var Engine = function () {
-	this.agents = {};
-	this.actionQueue = [];
-};
+var di = require('ng-di');
 
-Engine.prototype.addAgent = function (agent) {
-	if (this.agents[agent]) {
-		throw new Error('Agent already exists');
-	} else {
-		this.agents[agent.id] = agent;
-	}
-};
+di.module('combat.engine', [])
 
-Engine.prototype.queueAction = function (action) {
-	this.actionQueue.push(action);
-};
+	.factory('getEngine', function () {
+		var Engine = function () {
+			this.agents = {};
+			this.actionQueue = [];
+		};
 
-Engine.prototype.step = function () {
-	var currentAction = this.actionQueue.shift();
+		Engine.prototype.addAgent = function (agent) {
+			if (this.agents[agent.id]) {
+				throw new Error('Agent already exists');
+			} else {
+				this.agents[agent.id] = agent;
+			}
+		};
 
+		Engine.prototype.queueAction = function (action) {
+			this.actionQueue.push(action);
+		};
 
+		Engine.prototype.step = function () {
+			var currentAction = this.actionQueue.shift();
 
-	currentAction.perform();
-};
+			currentAction.perform();
+		};
 
-module.exports = Engine;
+		return function () {
+			return new Engine();
+		};
+	});
