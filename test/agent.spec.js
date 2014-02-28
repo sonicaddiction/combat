@@ -1,10 +1,22 @@
 var Agent = require('../src/agent.js');
 
-module.exports.create = function (test) {
-	var agent = Agent.getAgent('Adam');
+describe('agent', function () {
+	it('should create an agent with a name', function () {
+		var agent = Agent.getAgent('Artemis');
 
-	test.equal(agent.name, 'Adam');
-	test.equal(agent.hp, undefined);
+		expect(agent.name).toBe('Artemis');
+	});
 
-	test.done();
-};
+	it('should be able to have its health set', function () {
+		var agent = Agent.getAgent('Artemis', 10);
+
+		expect(agent.hp).toBe(10);
+	});
+
+	it('should have increasing id numbers', function () {
+		var agent1 = Agent.getAgent('Artemis'),
+			agent2 = Agent.getAgent('Beatrice');
+
+		expect(agent1.id).toBeLessThan(agent2.id);
+	});
+});
