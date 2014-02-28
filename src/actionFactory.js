@@ -1,4 +1,3 @@
-module.exports = {
-	performAttack: require('./actions/performAttack.js'),
-	performBlock: require('./actions/performBlock.js')
-};
+var di = require('ng-di').di;
+
+di.module('combat.actions', ['combat.action']);
