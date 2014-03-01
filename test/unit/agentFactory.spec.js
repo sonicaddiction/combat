@@ -1,7 +1,7 @@
 var mock = require('ng-di/mock'),
-	mockData = require('./mocks.js');
+	mockData = require('./../mocks.js');
 
-require('../src/agentFactory.js');
+require('../../src/agentFactory.js');
 
 describe('agentFactory', function () {
 

@@ -1,7 +1,7 @@
 var mock = require('ng-di/mock'),
 	getEngine;
 
-require('../src/engine.js');
+require('../../src/engine.js');
 
 describe('engine', function () {
 	beforeEach(mock.module('combat.engine'));

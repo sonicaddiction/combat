@@ -49,5 +49,5 @@ di.module('combat.actions')
 			};
 
 			return action;
-		}
+		};
 	});

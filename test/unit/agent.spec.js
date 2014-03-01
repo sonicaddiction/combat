@@ -1,6 +1,6 @@
 var mock = require('ng-di/mock');
 
-require('../src/agent.js');
+require('../../src/agent.js');
 
 describe('agent', function () {
 	beforeEach(mock.module('combat.agent'));
