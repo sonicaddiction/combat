@@ -26,7 +26,7 @@ injector.invoke(function (getEngine, getFighter, Action) {
 	engine.addAgent(a1);
 	engine.addAgent(a2);
 
-	engine.queueAction(a1.actions.performAttack.on(a2).with(a1.weapon));
+	engine.queueAction(a1.actions.performAttack.on(a2));
 
 	engine.step();
 });

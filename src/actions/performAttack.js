@@ -14,29 +14,19 @@ di.module('combat.actions')
 				{
 					name: 'on',
 					value: 'defender'
-				},
-				{
-					name: 'with',
-					value: 'weapon'
 				}
 			]);
 
-			action.success = function () {
+			action.getInfo = function () {
 				if (!action.defender) {
 					throw new Error('use the on() function');
 				}
 
-				if (!action.weapon) {
-					throw new Error('use the with() function');
-				}
-
-				console.log(action.performer.name, 'attacks', action.defender.name, 'with', action.weapon);
-
-				return action;
-			};
-
-			action.fail = function () {
-				console.log(action.performer.name, 'attacks', action.defender.name, 'with', action.weapon, 'but misses');
+				return {
+					type: 'attack',
+					attacker: this.performer,
+					defender: this.defender
+				};
 			};
 
 			return action;

@@ -21,9 +21,19 @@ di.module('combat.engine', [])
 		};
 
 		Engine.prototype.step = function () {
-			var currentAction = this.actionQueue.shift();
+			var currentAction = this.actionQueue.shift(),
+				actionInfo = currentAction.getInfo();
 
-			currentAction.perform();
+			switch(actionInfo.type) {
+				case 'attack':
+					console.log('Attack:', actionInfo);
+					break;
+				case 'block':
+					console.log('Block:', actionInfo);
+					break;
+				default:
+					console.log('Other action:', actionInfo);
+			};
 		};
 
 		return function () {
