@@ -45,4 +45,45 @@ describe('actions', function () {
 		expect(action.fail).toHaveBeenCalled();
 		expect(action.success).not.toHaveBeenCalled();
 	}));
+
+	describe('setter function chain generator', function () {
+		var setterChain,
+			performer;
+
+		beforeEach(function () {
+			performer = {
+				skills: {
+					jump: 60
+				}
+			};
+
+			setterChain = [
+				{
+					name: 'from',
+					value: 'startPosition'
+				},
+				{
+					name: 'andLandOn',
+					value: 'landingPosition'
+				}
+			];
+		});
+
+		it('should be able to generate a chain of setter functions', mock.inject(function (Action) {
+			var action = new Action('jump', performer);
+
+			action.createSetChain(setterChain);
+
+			expect(typeof action.from).toBe('function');
+			expect(typeof action.from('bridge').andLandOn).toBe('function');
+		}));
+
+		it('should return the action object from the last function', mock.inject(function (Action) {
+			var action = new Action('jump', performer);
+
+			action.createSetChain(setterChain);
+
+			expect(action.from('bridge').andLandOn('cat')).toBe(action);
+		}));
+	});
 });
