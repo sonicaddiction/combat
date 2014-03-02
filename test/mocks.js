@@ -4,6 +4,7 @@ di.module('combat.actions', []);
 
 module.exports = {
 	agent: {
-		learnAction: function () {}
+		learnAction: function () {},
+		setWeapon: function () {}
 	}
 };
