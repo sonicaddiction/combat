@@ -23,4 +23,15 @@ describe('agent', function () {
 
 		expect(agent1.id).toBeLessThan(agent2.id);
 	}));
+
+	it('should be able to have a weapon set', mock.inject(function (getAgent) {
+		var agent = getAgent('Artemis');
+
+		agent.setWeapon({
+			name: 'sword'
+		});
+
+		expect(agent.weapon).toBeDefined();
+		expect(agent.weapon.name).toBe('sword');
+	}));
 });

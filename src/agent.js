@@ -18,6 +18,10 @@ di.module('combat.agent', [])
 			this.skills[action.name] = skillValue;
 		};
 
+		Agent.prototype.setWeapon = function (weapon) {
+			this.weapon = weapon;
+		};
+
 		return function (name, hp) {
 			return new Agent(currentId++, name, hp);
 		};
