@@ -19,41 +19,11 @@ injector = di.injector([
 
 injector.invoke(function (getEngine, getFighter, Action) {
 	var engine = getEngine(),
-		fighter1 = getFighter('Krill'),
-		performJump = new Action('jump', {
-			skills: {
-				jump: 50
-			}
-		});
+		krill = getFighter('Krill'),
+		jimmy = getFighter('Jimmy'),
+		action1 = krill.actions.performAttack.on(jimmy).with('a sword'),
+		action2 = jimmy.actions.performBlock.from(krill).with('a club');
 
-	performJump.createSetChain([{
-			name: 'from',
-			value: 'startPlace'
-		},
-		{
-			name: 'andLandOn',
-			value: 'landingPlace'
-		},
-		{
-			name: 'in',
-			value: 'country'
-		}]);
-
-	performJump.success = function () {
-		console.log('Success');
-	};
-
-	performJump.fail = function () {
-		console.log('Fail');
-	};
-
-	performJump.from('a bridge').andLandOn('the ground').in('sweden');
-
-	console.log(performJump);
-
-//	performJump.perform();
-
-//	engine.addAgent(fighter1);
-//
-//	console.log(engine);
+	action1.perform();
+	action2.perform();
 });

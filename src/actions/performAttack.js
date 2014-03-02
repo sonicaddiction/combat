@@ -10,15 +10,16 @@ di.module('combat.actions')
 		return function (attacker) {
 			var action = new Action('performAttack', attacker);
 
-			action.on = function (defender) {
-				action.defender = defender;
-				return action;
-			};
-
-			action.with = function (weapon) {
-				action.weapon = weapon;
-				return action;
-			};
+			action.createSetChain([
+				{
+					name: 'on',
+					value: 'defender'
+				},
+				{
+					name: 'with',
+					value: 'weapon'
+				}
+			]);
 
 			action.success = function () {
 				if (!action.defender) {
