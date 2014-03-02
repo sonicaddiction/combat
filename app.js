@@ -3,6 +3,7 @@ var di = require('ng-di'),
 
 // Load dependencies
 require('./src/engine.js');
+require('./src/weapon.js');
 require('./src/agent.js');
 require('./src/agentFactory.js');
 require('./src/action.js');
@@ -19,11 +20,13 @@ injector = di.injector([
 
 injector.invoke(function (getEngine, getFighter, Action) {
 	var engine = getEngine(),
-		krill = getFighter('Krill'),
-		jimmy = getFighter('Jimmy'),
-		action1 = krill.actions.performAttack.on(jimmy).with('a sword'),
-		action2 = jimmy.actions.performBlock.from(krill).with('a club');
+		a1 = getFighter('Krill'),
+		a2 = getFighter('Zondar');
 
-	action1.perform();
-	action2.perform();
+	engine.addAgent(a1);
+	engine.addAgent(a2);
+
+	engine.queueAction(a1.actions.performAttack.on(a2).with(a1.weapon));
+
+	engine.step();
 });
