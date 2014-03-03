@@ -24,6 +24,15 @@ di.module('combat.agent', [])
 			this.hp = this.hp - damage;
 		};
 
+		Agent.prototype.weaponSkillCheck = function (modification) {
+			var weaponType = this.weapon.type,
+				skill = this.skills[weaponType];
+
+			if (skill) {
+				return skill.skillCheck(modification || 0);
+			}
+		};
+
 		return function (name, hp) {
 			return new Agent(currentId++, name, hp);
 		};

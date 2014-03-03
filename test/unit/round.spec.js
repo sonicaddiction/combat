@@ -1,4 +1,5 @@
-var mock = require('ng-di/mock');
+var mock = require('ng-di/mock'),
+	mockData = require('../mocks.js');
 
 require('../../src/round.js');
 
@@ -53,32 +54,18 @@ describe('round', function () {
 	}));
 
 	describe('popEligibleBlocks', function () {
-		var attacker, defender, MockAttack, MockBlock, extraAttacker;
+		var attacker, defender, extraAttacker;
 
 		beforeEach(function () {
 			attacker = { name: 'Anubis' };
 			defender = { name: 'Bon Jovi' };
 			extraAttacker = { name: 'Cicero' };
-
-			MockAttack = function (attacker, defender) {
-				this.setInitiative = function () {};
-				this.type = 'attack';
-				this.attacker = attacker;
-				this.defender = defender;
-			}
-
-			MockBlock = function (attacker, defender) {
-				this.setInitiative = function () {};
-				this.type = 'block';
-				this.attacker = attacker;
-				this.defender = defender;
-			}
 		});
 
 		it('should be able to pop a block from the block list if it matches an attack', mock.inject(function (newRound) {
 			var round = newRound(),
-				attack = new MockAttack(attacker, defender),
-				block = new MockBlock(attacker, defender),
+				attack = new mockData.MockAttack(attacker, defender),
+				block = new mockData.MockBlock(attacker, defender),
 				retrievedBlock;
 
 			round.queueAction()(attack);
@@ -96,8 +83,8 @@ describe('round', function () {
 
 		it('should not find any blocks if the blocker doesn´t match', mock.inject(function (newRound) {
 			var round = newRound(),
-				attack = new MockAttack(extraAttacker, defender),
-				block = new MockBlock(attacker, defender),
+				attack = new mockData.MockAttack(extraAttacker, defender),
+				block = new mockData.MockBlock(attacker, defender),
 				retrievedBlock;
 
 			round.queueAction()(attack);
@@ -111,6 +98,28 @@ describe('round', function () {
 
 			expect(retrievedBlock).toBeNull();
 			expect(round.blockList.length).toBe(1);
+		}));
+	});
+
+	describe('performAttack', function () {
+		var attacker, defender, round;
+
+		beforeEach(mock.inject(function (newRound) {
+			attacker = { name: 'Anubis' };
+			defender = { name: 'Bon Jovi' };
+
+			round = newRound();
+
+			attack = new mockData.MockAttack(attacker, defender);
+
+			round.queueAction()(attack);
+		}));
+
+		it('should do something', mock.inject(function (newRound) {
+
+			round.setupCombat();
+
+			expect(round.attackList.length).toBe(1);
 		}));
 	});
 });

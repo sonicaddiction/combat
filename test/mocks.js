@@ -7,5 +7,17 @@ module.exports = {
 	},
 	skill: {
 		getSkill: function () {}
+	},
+	MockAttack: function (attacker, defender) {
+		this.setInitiative = function () {};
+		this.type = 'attack';
+		this.attacker = attacker;
+		this.defender = defender;
+	},
+	MockBlock: function (attacker, defender) {
+		this.setInitiative = function () {};
+		this.type = 'block';
+		this.attacker = attacker;
+		this.defender = defender;
 	}
 };

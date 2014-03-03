@@ -22,7 +22,7 @@ di.module('combat.engine', ['combat.round'])
 
 			round.setupCombat();
 
-			console.log('Round:', round);
+			round.performAttacks();
 		};
 
 		return function () {

@@ -28,10 +28,27 @@ describe('agent', function () {
 		var agent = getAgent('Artemis');
 
 		agent.setWeapon({
-			name: 'sword'
+			type: 'sword'
 		});
 
 		expect(agent.weapon).toBeDefined();
-		expect(agent.weapon.name).toBe('sword');
+		expect(agent.weapon.type).toBe('sword');
+	}));
+
+	it('should do a skill check on the weapon', mock.inject(function (getAgent) {
+		var agent = getAgent('Artemis');
+
+		agent.setWeapon({
+			type: 'sword'
+		});
+
+		agent.learnSkill('sword', {
+			name: 'sword',
+			skillCheck: jasmine.createSpy()
+		});
+
+		agent.weaponSkillCheck();
+
+		expect(agent.skills.sword.skillCheck).toHaveBeenCalledWith(0);
 	}));
 });

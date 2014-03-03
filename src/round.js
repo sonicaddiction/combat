@@ -20,6 +20,11 @@ di.module('combat.round', [])
 
 		Round.prototype.setupCombat = function () {
 			var round = this;
+
+			this.actionList.sort(function (a, b) {
+				return a.initiative - b.initiative;
+			});
+
 			this.actionList.forEach(function (action) {
 				switch(action.type) {
 					case 'attack':
@@ -53,6 +58,17 @@ di.module('combat.round', [])
 				return null;
 			}
 
+		};
+
+		Round.prototype.performAttacks = function () {
+			var round = this;
+			this.attackList.forEach(function (attack) {
+				round.performAttack(attack);
+			});
+		};
+
+		Round.prototype.performAttack = function (attack) {
+			var successfullAttack = attack.attacker.weaponSkillCheck();
 		};
 
 		return function () {
