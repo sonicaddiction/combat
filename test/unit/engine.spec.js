@@ -25,12 +25,6 @@ describe('engine', function () {
 		expect(agents.length).toBe(0);
 	}));
 
-	it('should initially have no queued actions', mock.inject(function (getEngine) {
-		var engine = getEngine();
-
-		expect(engine.actionQueue.length).toBe(0);
-	}));
-
 	it('should be able to add agents', mock.inject(function (getEngine) {
 		var engine = getEngine(),
 			mockAgent0 = {
@@ -58,18 +52,5 @@ describe('engine', function () {
 		engine.addAgent(mockAgent);
 
 		expect(addSameAgentAgain).toThrow(new Error('Agent already exists'));
-	}));
-
-	it('should be able to queue actions', mock.inject(function (getEngine) {
-		var engine = getEngine(),
-			spy1 = jasmine.createSpy(),
-			spy2 = jasmine.createSpy();
-
-		engine.queueAction({ setInitiative: spy1 });
-		engine.queueAction({ setInitiative: spy2 });
-
-		expect(engine.actionQueue.length).toBe(2);
-		expect(spy1).toHaveBeenCalled();
-		expect(spy2).toHaveBeenCalled();
 	}));
 });

@@ -9,8 +9,9 @@ di.module('combat.round', [])
 			this.blockList = [];
 		}
 
-		Round.prototype.addAction = function (action) {
-
+		Round.prototype.queueAction = function (action) {
+			action.setInitiative();
+			this.actionList.push(action);
 		};
 
 		return function () {

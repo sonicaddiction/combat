@@ -1,11 +1,10 @@
 var di = require('ng-di');
 
-di.module('combat.engine', [])
+di.module('combat.engine', ['combat.round'])
 
-	.factory('getEngine', function () {
+	.factory('getEngine', function (newRound) {
 		var Engine = function () {
 			this.agents = {};
-			this.actionQueue = [];
 		};
 
 		Engine.prototype.addAgent = function (agent) {
@@ -16,9 +15,8 @@ di.module('combat.engine', [])
 			}
 		};
 
-		Engine.prototype.queueAction = function (action) {
-			action.setInitiative();
-			this.actionQueue.push(action);
+		Engine.prototype.newRound = function () {
+			return newRound();
 		};
 
 		Engine.prototype.step = function () {
