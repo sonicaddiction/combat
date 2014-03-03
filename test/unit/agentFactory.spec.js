@@ -8,8 +8,6 @@ describe('agentFactory', function () {
 	beforeEach(mock.module('combat.agent-factory'));
 
 	beforeEach(mock.module(function ($provide) {
-		$provide.value('performAttack', function () {});
-		$provide.value('performBlock', function () {});
 		$provide.value('getAgent', function () {
 			return mockData.agent;
 		});

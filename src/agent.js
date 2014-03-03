@@ -9,13 +9,11 @@ di.module('combat.agent', [])
 			this.name = name;
 			this.id = id;
 			this.hp = hp;
-			this.actions = {};
 			this.skills = {};
 		};
 
-		Agent.prototype.learnAction = function (action, skillValue) {
-			this.actions[action.name] = action;
-			this.skills[action.name] = skillValue;
+		Agent.prototype.learnSkill = function (skill, skillValue) {
+			this.skills[skill] = skillValue;
 		};
 
 		Agent.prototype.setWeapon = function (weapon) {

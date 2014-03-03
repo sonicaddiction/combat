@@ -8,6 +8,12 @@ di.module('combat.dice', [])
 		};
 	})
 
+	.factory('d20', function () {
+		return function () {
+			return Math.ceil(Math.random() * 20);
+		};
+	})
+
 	.factory('d100', function () {
 		return function () {
 			return Math.ceil(Math.random() * 100);

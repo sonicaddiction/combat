@@ -64,17 +64,5 @@ describe('engine', function () {
 	}));
 
 	it('should be able to perform an action in the queue', mock.inject(function (getEngine) {
-		var engine = getEngine(),
-			action = {
-				perform: function () {}
-			};
-
-		engine.queueAction(action);
-
-		spyOn(action, 'perform');
-
-		engine.step();
-
-		expect(action.perform).toHaveBeenCalled();
 	}));
 });
