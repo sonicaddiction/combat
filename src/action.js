@@ -18,13 +18,44 @@ di.module('combat.action', [])
 	})
 
 	.factory('getAttack', function (getAction) {
+		var attack = getAction('attack');
+
+		attack.defender = function (defender) {
+			this.defender = defender;
+			return attack;
+		};
+
+		attack.attacker = function (attacker) {
+			this.attacker = attacker;
+			return attack;
+		};
+
 		return function () {
-			return getAction('attack');
+			return attack;
 		};
 	})
 
 	.factory('getBlock', function (getAction) {
-		return function () {
-			return getAction('block');
+		var block = getAction('block');
+
+		block.defender = function (defender) {
+			this.defender = defender;
+			return block;
 		};
+
+		block.attacker = function (attacker) {
+			this.attacker = attacker;
+			return block;
+		};
+
+		return function () {
+			return block;
+		};
+	})
+
+	.factory('perform', function (getAttack, getBlock) {
+		return {
+			attack: getAttack,
+			block: getBlock
+		}
 	});
