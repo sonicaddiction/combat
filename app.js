@@ -3,6 +3,7 @@ var di = require('ng-di'),
 
 // Load dependencies
 require('./src/engine.js');
+require('./src/round.js');
 require('./src/weapon.js');
 require('./src/agent.js');
 require('./src/agentFactory.js');
@@ -24,7 +25,7 @@ injector.invoke(function (getEngine, getFighter, perform) {
 	engine.addAgent(a1);
 	engine.addAgent(a2);
 
-	engine.queueAction(perform.attack().attacker(a1).defender(a2));
-
-	console.log(a1);
+	engine.newRound(function (round) {
+		round.queueAction(perform.attack().attacker(a1).defender(a2));
+	});
 });

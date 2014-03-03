@@ -15,8 +15,12 @@ di.module('combat.engine', ['combat.round'])
 			}
 		};
 
-		Engine.prototype.newRound = function () {
-			return newRound();
+		Engine.prototype.newRound = function (setupRoundCallback) {
+			var round = newRound();
+
+			setupRoundCallback(round);
+
+			console.log('Round:', round);
 		};
 
 		Engine.prototype.step = function () {
