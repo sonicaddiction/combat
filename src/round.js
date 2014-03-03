@@ -68,7 +68,25 @@ di.module('combat.round', [])
 		};
 
 		Round.prototype.performAttack = function (attack) {
-			var successfullAttack = attack.attacker.weaponSkillCheck();
+			var successfullAttack,
+				successfulBlock;
+
+			successfullAttack = attack.attacker.weaponSkillCheck();
+			if (this.popEligibleBlocks(attack)) {
+				successfulBlock = attack.defender.weaponSkillCheck();
+			}
+
+			console.log(successfullAttack, successfulBlock);
+
+			if (successfullAttack && ! successfulBlock) {
+				console.log(attack.attacker.name, 'hits', attack.defender.name);
+			} else if (successfullAttack && successfulBlock) {
+				console.log(attack.defender.name, 'blocks the attack of', attack.attacker.name);
+			} else if (!successfullAttack && successfulBlock) {
+				console.log(attack.defender.name, 'deftly avoids the attack and gains an extra action');
+			} else {
+				console.log('Both fighters stumble around each other clumsily');
+			}
 		};
 
 		return function () {
