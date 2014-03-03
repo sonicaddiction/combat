@@ -11,6 +11,9 @@ describe('agentFactory', function () {
 		$provide.value('getAgent', function () {
 			return mockData.agent;
 		});
+		$provide.value('getSkill', function () {
+			return mockData.skill;
+		});
 	}));
 
 	it('should create a fighter with type fighter', mock.inject(function (getFighter) {

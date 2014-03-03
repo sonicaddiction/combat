@@ -6,6 +6,12 @@ require('../../src/engine.js');
 describe('engine', function () {
 	beforeEach(mock.module('combat.engine'));
 
+	beforeEach(mock.module(function ($provide) {
+		$provide.value('d20', function () {
+			return 10;
+		});
+	}));
+
 	it('should create an object', mock.inject(function (getEngine) {
 		var engine = getEngine();
 
@@ -55,14 +61,15 @@ describe('engine', function () {
 	}));
 
 	it('should be able to queue actions', mock.inject(function (getEngine) {
-		var engine = getEngine();
+		var engine = getEngine(),
+			spy1 = jasmine.createSpy(),
+			spy2 = jasmine.createSpy();
 
-		engine.queueAction({ foo: 1 });
-		engine.queueAction({ foo: 2 });
+		engine.queueAction({ setInitiative: spy1 });
+		engine.queueAction({ setInitiative: spy2 });
 
 		expect(engine.actionQueue.length).toBe(2);
-	}));
-
-	it('should be able to perform an action in the queue', mock.inject(function (getEngine) {
+		expect(spy1).toHaveBeenCalled();
+		expect(spy2).toHaveBeenCalled();
 	}));
 });

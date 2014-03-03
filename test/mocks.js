@@ -4,5 +4,8 @@ module.exports = {
 	agent: {
 		learnSkill: function () {},
 		setWeapon: function () {}
+	},
+	skill: {
+		getSkill: function () {}
 	}
 };
