@@ -17,15 +17,11 @@ describe('skill', function () {
 	it('should succeed when roll is beneath or equal to its skillValue', mock.inject(function (getSkill) {
 		var skill = getSkill('jump', 10);
 
-		console.log(skill);
-
 		expect(skill.skillCheck()).toBeTruthy();
 	}));
 
 	it('should fail when roll is beneath or equal to its skillValue', mock.inject(function (getSkill) {
 		var skill = getSkill('jump', 9);
-
-		console.log(skill);
 
 		expect(skill.skillCheck()).toBeFalsy();
 	}));
