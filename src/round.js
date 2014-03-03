@@ -18,8 +18,20 @@ di.module('combat.round', [])
 			}
 		};
 
-		Round.setupCombat = function () {
-
+		Round.prototype.setupCombat = function () {
+			var round = this;
+			this.actionList.forEach(function (action) {
+				switch(action.type) {
+					case 'attack':
+						round.attackList.push(action);
+						break;
+					case 'block':
+						round.blockList.push(action);
+						break;
+					default:
+						console.log('Other action:', action);
+				};
+			});
 		};
 
 		return function () {

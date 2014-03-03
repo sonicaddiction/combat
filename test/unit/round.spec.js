@@ -27,4 +27,28 @@ describe('round', function () {
 		expect(spy2).toHaveBeenCalled();
 	}));
 
+	it('should be able to sort actions into attack and block lists', mock.inject(function (newRound) {
+		var round = newRound();
+
+		round.queueAction()({
+			setInitiative: function () {},
+			type: 'attack'
+		});
+		round.queueAction()({
+			setInitiative: function () {},
+			type: 'attack'
+		});
+		round.queueAction()({
+			setInitiative: function () {},
+			type: 'block'
+		});
+
+		expect(round.attackList.length).toBe(0);
+		expect(round.blockList.length).toBe(0);
+
+		round.setupCombat();
+
+		expect(round.attackList.length).toBe(2);
+		expect(round.blockList.length).toBe(1);
+	}));
 });
