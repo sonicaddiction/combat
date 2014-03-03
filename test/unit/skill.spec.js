@@ -25,4 +25,14 @@ describe('skill', function () {
 
 		expect(skill.skillCheck()).toBeFalsy();
 	}));
+
+	it('should be able to report relative success', mock.inject(function (getSkill) {
+		var skill1 = getSkill('jump', 5),
+			skill2 = getSkill('jump', 10),
+			skill3 = getSkill('jump', 15);
+
+		expect(skill1.skillCheckDiff()).toBe(-5);
+		expect(skill2.skillCheckDiff()).toBe(0);
+		expect(skill3.skillCheckDiff()).toBe(5);
+	}));
 });
