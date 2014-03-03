@@ -8,8 +8,6 @@ describe('weapon', function () {
 	it('should create a weapon with a type', mock.inject(function (getWeapon) {
 		var weapon = getWeapon('sword', 'Broad sword');
 
-		console.log(weapon);
-
 		expect(weapon.type).toBe('sword');
 	}));
 

@@ -20,14 +20,17 @@ injector = di.injector([
 injector.invoke(function (getEngine, getFighter, perform) {
 	var engine = getEngine(),
 		a1 = getFighter('Krill'),
-		a2 = getFighter('Zondar');
+		a2 = getFighter('Zondar'),
+		a3 = getFighter('Yokanza');
 
 	engine.addAgent(a1);
 	engine.addAgent(a2);
+	engine.addAgent(a3);
 
 	engine.newRound(function (queueAction) {
 		queueAction(perform.attack().setAttacker(a1).setDefender(a2));
-		queueAction(perform.attack().setAttacker(a1).setDefender(a2));
 		queueAction(perform.block().setDefender(a2).setAttacker(a1));
+		queueAction(perform.block().setDefender(a3).setAttacker(a1));
+		queueAction(perform.block().setDefender(a2).setAttacker(a3));
 	});
 });

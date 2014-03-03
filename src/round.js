@@ -34,6 +34,27 @@ di.module('combat.round', [])
 			});
 		};
 
+		Round.prototype.popEligibleBlocks = function (attack) {
+			var blockExists,
+				foundBlock,
+				round = this;
+
+			blockExists = this.blockList.some(function (block, index) {
+				if ((block.attacker === attack.attacker) && block.defender === attack.defender) {
+					foundBlock = block;
+					round.blockList.splice(index, 1);
+					return true;
+				}
+			});
+
+			if (blockExists) {
+				return foundBlock;
+			} else {
+				return null;
+			}
+
+		};
+
 		return function () {
 			return new Round();
 		};
