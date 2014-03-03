@@ -5,11 +5,14 @@ di.module('combat.action', [])
 	.factory('getAction', function () {
 		function Action(type) {
 			this.type = type;
-			this.priority = -Number.MAX_VALUE;
+			this.initiative = -Number.MAX_VALUE;
+			this.performer = null;
 		}
 
-		Action.prototype.setPriority = function(priority) {
-			this.priority = priority;
+		Action.prototype.setInitiative = function() {
+			var initiative = this.performer.skills.initiative.skillCheckDiff();
+
+			this.initiative = initiative;
 		};
 
 		return function (type) {
@@ -27,6 +30,7 @@ di.module('combat.action', [])
 
 		attack.attacker = function (attacker) {
 			this.attacker = attacker;
+			this.performer = attacker;
 			return attack;
 		};
 
@@ -40,6 +44,7 @@ di.module('combat.action', [])
 
 		block.defender = function (defender) {
 			this.defender = defender;
+			this.performer = defender;
 			return block;
 		};
 

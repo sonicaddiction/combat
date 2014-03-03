@@ -17,6 +17,7 @@ di.module('combat.engine', [])
 		};
 
 		Engine.prototype.queueAction = function (action) {
+			action.setInitiative();
 			this.actionQueue.push(action);
 		};
 

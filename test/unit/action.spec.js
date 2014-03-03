@@ -37,4 +37,12 @@ describe('action', function () {
 		expect(block.attacker).toBe('agent1');
 		expect(block.defender).toBe('agent2');
 	}));
+
+	it('should set the performer property by default', mock.inject(function (perform) {
+		var attack = perform.attack().attacker('agent1').defender('agent2'),
+			block = perform.block().attacker('agent1').defender('agent2');
+
+		expect(attack.performer).toBe('agent1');
+		expect(block.performer).toBe('agent2');
+	}));
 });

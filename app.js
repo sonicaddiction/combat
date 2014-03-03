@@ -8,6 +8,7 @@ require('./src/agent.js');
 require('./src/agentFactory.js');
 require('./src/dice.js');
 require('./src/action.js');
+require('./src/skill.js');
 
 injector = di.injector([
 	'combat.engine',
@@ -23,7 +24,7 @@ injector.invoke(function (getEngine, getFighter, perform) {
 	engine.addAgent(a1);
 	engine.addAgent(a2);
 
-	console.log(perform.attack().attacker(a1).defender(a2));
+	engine.queueAction(perform.attack().attacker(a1).defender(a2));
 
 	console.log(a1);
 });
