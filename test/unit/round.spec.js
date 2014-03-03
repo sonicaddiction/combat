@@ -18,8 +18,9 @@ describe('round', function () {
 			spy1 = jasmine.createSpy(),
 			spy2 = jasmine.createSpy();
 
-		round.queueAction({ setInitiative: spy1 });
-		round.queueAction({ setInitiative: spy2 });
+		round.queueAction()({ setInitiative: spy1 });
+		round.queueAction()({ setInitiative: spy2 });
+
 
 		expect(round.actionList.length).toBe(2);
 		expect(spy1).toHaveBeenCalled();

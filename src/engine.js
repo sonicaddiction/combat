@@ -18,7 +18,7 @@ di.module('combat.engine', ['combat.round'])
 		Engine.prototype.newRound = function (setupRoundCallback) {
 			var round = newRound();
 
-			setupRoundCallback(round);
+			setupRoundCallback(round.queueAction());
 
 			console.log('Round:', round);
 		};

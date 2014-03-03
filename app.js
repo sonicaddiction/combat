@@ -25,7 +25,7 @@ injector.invoke(function (getEngine, getFighter, perform) {
 	engine.addAgent(a1);
 	engine.addAgent(a2);
 
-	engine.newRound(function (round) {
-		round.queueAction(perform.attack().attacker(a1).defender(a2));
+	engine.newRound(function (queueAction) {
+		queueAction(perform.attack().setAttacker(a1).setDefender(a2));
 	});
 });

@@ -28,8 +28,8 @@ describe('action', function () {
 		var attack = perform.attack(),
 			block = perform.block();
 
-		attack.attacker('agent1').defender('agent2');
-		block.attacker('agent1').defender('agent2');
+		attack.setAttacker('agent1').setDefender('agent2');
+		block.setAttacker('agent1').setDefender('agent2');
 
 		expect(attack.attacker).toBe('agent1');
 		expect(attack.defender).toBe('agent2');
@@ -39,8 +39,8 @@ describe('action', function () {
 	}));
 
 	it('should set the performer property by default', mock.inject(function (perform) {
-		var attack = perform.attack().attacker('agent1').defender('agent2'),
-			block = perform.block().attacker('agent1').defender('agent2');
+		var attack = perform.attack().setAttacker('agent1').setDefender('agent2'),
+			block = perform.block().setAttacker('agent1').setDefender('agent2');
 
 		expect(attack.performer).toBe('agent1');
 		expect(block.performer).toBe('agent2');
