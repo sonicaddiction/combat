@@ -27,5 +27,7 @@ injector.invoke(function (getEngine, getFighter, perform) {
 
 	engine.newRound(function (queueAction) {
 		queueAction(perform.attack().setAttacker(a1).setDefender(a2));
+		queueAction(perform.attack().setAttacker(a1).setDefender(a2));
+		queueAction(perform.block().setDefender(a2).setAttacker(a1));
 	});
 });

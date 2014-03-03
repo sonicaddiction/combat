@@ -21,39 +21,39 @@ di.module('combat.action', [])
 	})
 
 	.factory('getAttack', function (getAction) {
-		var attack = getAction('attack');
-
-		attack.setDefender = function (defender) {
-			this.defender = defender;
-			return attack;
-		};
-
-		attack.setAttacker = function (attacker) {
-			this.attacker = attacker;
-			this.performer = attacker;
-			return attack;
-		};
-
 		return function () {
+			var attack = getAction('attack');
+
+			attack.setDefender = function (defender) {
+				this.defender = defender;
+				return attack;
+			};
+
+			attack.setAttacker = function (attacker) {
+				this.attacker = attacker;
+				this.performer = attacker;
+				return attack;
+			};
+
 			return attack;
 		};
 	})
 
 	.factory('getBlock', function (getAction) {
-		var block = getAction('block');
-
-		block.setDefender = function (defender) {
-			this.defender = defender;
-			this.performer = defender;
-			return block;
-		};
-
-		block.setAttacker = function (attacker) {
-			this.attacker = attacker;
-			return block;
-		};
-
 		return function () {
+			var block = getAction('block');
+
+			block.setDefender = function (defender) {
+				this.defender = defender;
+				this.performer = defender;
+				return block;
+			};
+
+			block.setAttacker = function (attacker) {
+				this.attacker = attacker;
+				return block;
+			};
+
 			return block;
 		};
 	})
