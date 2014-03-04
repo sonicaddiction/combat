@@ -3,7 +3,8 @@ var di = require('ng-di');
 module.exports = {
 	agent: {
 		learnSkill: function () {},
-		setWeapon: function () {}
+		setWeapon: function () {},
+		weaponSkillCheck: function () {}
 	},
 	skill: {
 		getSkill: function () {}

@@ -9,7 +9,7 @@ di.module('combat.agent-factory', [
 	.factory('getFighter', function (getAgent, getWeapon, getSkill) {
 		return function (name) {
 			var fighter = getAgent(name, 10),
-				sword = getWeapon('sword', 4);
+				sword = getWeapon('sword', 'broad sword', 4);
 			fighter.type = 'fighter';
 
 			fighter.setWeapon(sword);

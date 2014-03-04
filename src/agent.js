@@ -33,6 +33,10 @@ di.module('combat.agent', [])
 			}
 		};
 
+		Agent.prototype.recieveDamage = function (damage) {
+			this.hp = this.hp - damage;
+		};
+
 		return function (name, hp) {
 			return new Agent(currentId++, name, hp);
 		};

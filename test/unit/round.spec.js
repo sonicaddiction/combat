@@ -102,24 +102,48 @@ describe('round', function () {
 	});
 
 	describe('performAttack', function () {
-		var attacker, defender, round;
+		var successfulAttacker,
+			successfulDefender,
+			failingAttacker,
+			failingDefender,
+			round;
 
 		beforeEach(mock.inject(function (newRound) {
-			attacker = { name: 'Anubis' };
-			defender = { name: 'Bon Jovi' };
-
+			successfulAttacker = {
+				name: 'Anubis', weaponSkillCheck: function () { return true },
+				recieveDamage: jasmine.createSpy(),
+				weapon: {}
+			};
+			successfulDefender = {
+				name: 'Balusifer', weaponSkillCheck: function () { return true },
+				recieveDamage: jasmine.createSpy(),
+				weapon: {}
+			};
+			failingAttacker = {
+				name: 'Crowley', weaponSkillCheck: function () { return false },
+				recieveDamage: jasmine.createSpy(),
+				weapon: {}
+			};
+			failingDefender = {
+				name: 'Demon Lord', weaponSkillCheck: function () { return false },
+				recieveDamage: jasmine.createSpy(),
+				weapon: {}
+			};
 			round = newRound();
-
-			attack = new mockData.MockAttack(attacker, defender);
-
-			round.queueAction()(attack);
 		}));
 
-		it('should do something', mock.inject(function (newRound) {
+		it('should hit if the attacker succeeds and the blocker fails', mock.inject(function (newRound) {
+			attack = new mockData.MockAttack(successfulAttacker, failingDefender);
+			block = new mockData.MockBlock(successfulAttacker, failingDefender);
+
+			round.queueAction()(attack);
+			round.queueAction()(block);
 
 			round.setupCombat();
 
-			expect(round.attackList.length).toBe(1);
+			round.performAttacks();
+
+			expect(failingDefender.recieveDamage).toHaveBeenCalled();
 		}));
 	});
 });

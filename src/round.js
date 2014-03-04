@@ -69,21 +69,25 @@ di.module('combat.round', [])
 
 		Round.prototype.performAttack = function (attack) {
 			var successfullAttack,
-				successfulBlock;
+				successfulBlock,
+				attacker = attack.attacker,
+				defender = attack.defender;
 
-			successfullAttack = attack.attacker.weaponSkillCheck();
+			successfullAttack = attacker.weaponSkillCheck();
 			if (this.popEligibleBlocks(attack)) {
-				successfulBlock = attack.defender.weaponSkillCheck();
+				successfulBlock = defender.weaponSkillCheck();
 			}
 
 			console.log(successfullAttack, successfulBlock);
 
 			if (successfullAttack && ! successfulBlock) {
-				console.log(attack.attacker.name, 'hits', attack.defender.name);
+				console.log(attacker.name, 'hits', defender.name);
+				defender.recieveDamage(attacker.weapon.damage);
+				console.log(defender.hp);
 			} else if (successfullAttack && successfulBlock) {
-				console.log(attack.defender.name, 'blocks the attack of', attack.attacker.name);
+				console.log(defender.name, 'blocks the attack of', attacker.name);
 			} else if (!successfullAttack && successfulBlock) {
-				console.log(attack.defender.name, 'deftly avoids the attack and gains an extra action');
+				console.log(defender.name, 'deftly avoids the attack and gains an extra action');
 			} else {
 				console.log('Both fighters stumble around each other clumsily');
 			}
