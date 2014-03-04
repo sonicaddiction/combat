@@ -102,39 +102,30 @@ describe('round', function () {
 	});
 
 	describe('performAttack', function () {
-		var successfulAttacker,
-			successfulDefender,
-			failingAttacker,
-			failingDefender,
+		var attacker,
+			defender,
 			round;
 
 		beforeEach(mock.inject(function (newRound) {
-			successfulAttacker = {
-				name: 'Anubis', weaponSkillCheck: function () { return true },
-				recieveDamage: jasmine.createSpy(),
+			attacker = {
+				name: 'Anubis', weaponSkillCheck: jasmine.createSpy('attacker weaponSkillCheck'),
+				recieveDamage: jasmine.createSpy('attacker recieveDamage'),
 				weapon: {}
 			};
-			successfulDefender = {
-				name: 'Balusifer', weaponSkillCheck: function () { return true },
-				recieveDamage: jasmine.createSpy(),
-				weapon: {}
-			};
-			failingAttacker = {
-				name: 'Crowley', weaponSkillCheck: function () { return false },
-				recieveDamage: jasmine.createSpy(),
-				weapon: {}
-			};
-			failingDefender = {
-				name: 'Demon Lord', weaponSkillCheck: function () { return false },
-				recieveDamage: jasmine.createSpy(),
+			defender = {
+				name: 'Balusifer', weaponSkillCheck: jasmine.createSpy('defender weaponSkillCheck'),
+				recieveDamage: jasmine.createSpy('defender recieveDamage'),
 				weapon: {}
 			};
 			round = newRound();
 		}));
 
 		it('should hit if the attacker succeeds and the blocker fails', mock.inject(function (newRound) {
-			attack = new mockData.MockAttack(successfulAttacker, failingDefender);
-			block = new mockData.MockBlock(successfulAttacker, failingDefender);
+			attack = new mockData.MockAttack(attacker, defender);
+			block = new mockData.MockBlock(attacker, defender);
+
+			attacker.weaponSkillCheck.andReturn(true);
+			defender.weaponSkillCheck.andReturn(false);
 
 			round.queueAction()(attack);
 			round.queueAction()(block);
@@ -143,7 +134,7 @@ describe('round', function () {
 
 			round.performAttacks();
 
-			expect(failingDefender.recieveDamage).toHaveBeenCalled();
+			expect(defender.recieveDamage).toHaveBeenCalled();
 		}));
 	});
 });
