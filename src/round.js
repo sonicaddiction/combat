@@ -73,17 +73,19 @@ di.module('combat.round', [])
 				attacker = attack.attacker,
 				defender = attack.defender;
 
+			if (attacker.status.dead) {
+				console.log(attacker.name, 'is dead and can´t attack');
+				return;
+			}
+
 			successfullAttack = attacker.weaponSkillCheck();
 			if (this.popEligibleBlocks(attack)) {
 				successfulBlock = defender.weaponSkillCheck();
 			}
 
-			console.log(successfullAttack, successfulBlock);
-
 			if (successfullAttack && ! successfulBlock) {
 				console.log(attacker.name, 'hits', defender.name);
 				defender.recieveDamage(attacker.weapon.damage);
-				console.log(defender.hp);
 			} else if (successfullAttack && successfulBlock) {
 				console.log(defender.name, 'blocks the attack of', attacker.name);
 			} else if (!successfullAttack && successfulBlock) {

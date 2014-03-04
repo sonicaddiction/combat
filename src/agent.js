@@ -10,6 +10,7 @@ di.module('combat.agent', [])
 			this.id = id;
 			this.hp = hp;
 			this.skills = {};
+			this.status = {};
 		};
 
 		Agent.prototype.learnSkill = function (skill, skillValue) {
@@ -18,10 +19,6 @@ di.module('combat.agent', [])
 
 		Agent.prototype.setWeapon = function (weapon) {
 			this.weapon = weapon;
-		};
-
-		Agent.prototype.damage = function (damage) {
-			this.hp = this.hp - damage;
 		};
 
 		Agent.prototype.weaponSkillCheck = function (modification) {
@@ -35,6 +32,11 @@ di.module('combat.agent', [])
 
 		Agent.prototype.recieveDamage = function (damage) {
 			this.hp = this.hp - damage;
+
+			if (this.hp < 0) {
+				console.log(this.name, 'dies from the wounds');
+				this.status.dead = true;
+			}
 		};
 
 		return function (name, hp) {

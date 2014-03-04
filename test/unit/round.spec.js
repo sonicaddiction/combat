@@ -110,11 +110,13 @@ describe('round', function () {
 			attacker = {
 				name: 'Anubis', weaponSkillCheck: jasmine.createSpy('attacker weaponSkillCheck'),
 				recieveDamage: jasmine.createSpy('attacker recieveDamage'),
+				status: {},
 				weapon: {}
 			};
 			defender = {
 				name: 'Balusifer', weaponSkillCheck: jasmine.createSpy('defender weaponSkillCheck'),
 				recieveDamage: jasmine.createSpy('defender recieveDamage'),
+				status: {},
 				weapon: {}
 			};
 			round = newRound();
