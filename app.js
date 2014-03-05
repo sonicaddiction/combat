@@ -13,7 +13,7 @@ require('./src/skill.js');
 
 injector = di.injector([
 	'combat.engine',
-	'combat.agent-factory',
+	'combat.agentFactory',
 	'combat.action'
 ]);
 

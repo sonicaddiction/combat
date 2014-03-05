@@ -3,22 +3,23 @@ var mock = require('ng-di/mock'),
 
 require('../../src/agentFactory.js');
 
-describe('agentFactory', function () {
+describe('combat.agentFactory', function () {
+	beforeEach(mock.module('combat.agentFactory'));
 
-	beforeEach(mock.module('combat.agent-factory'));
+	describe('combat.agentFactory', function () {
+		beforeEach(mock.module(function ($provide) {
+			$provide.value('getAgent', function () {
+				return mockData.agent;
+			});
+			$provide.value('getSkill', function () {
+				return mockData.skill;
+			});
+		}));
 
-	beforeEach(mock.module(function ($provide) {
-		$provide.value('getAgent', function () {
-			return mockData.agent;
-		});
-		$provide.value('getSkill', function () {
-			return mockData.skill;
-		});
-	}));
+		it('should create a fighter with type fighter', mock.inject(function (getFighter) {
+			var agent = getFighter('Artemis');
 
-	it('should create a fighter with type fighter', mock.inject(function (getFighter) {
-		var agent = getFighter('Artemis');
-
-		expect(agent.type).toBe('fighter');
-	}));
+			expect(agent.type).toBe('fighter');
+		}));
+	});
 });

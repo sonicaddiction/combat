@@ -2,53 +2,55 @@ var mock = require('ng-di/mock');
 
 require('../../src/agent.js');
 
-describe('agent', function () {
+describe('combat.agent', function () {
 	beforeEach(mock.module('combat.agent'));
 
-	it('should create an agent with a name', mock.inject(function (getAgent) {
-		var agent = getAgent('Artemis');
+	describe('getAgent', function () {
+		it('should create an agent with a name', mock.inject(function (getAgent) {
+			var agent = getAgent('Artemis');
 
-		expect(agent.name).toBe('Artemis');
-	}));
+			expect(agent.name).toBe('Artemis');
+		}));
 
-	it('should be able to have its health set', mock.inject(function (getAgent) {
-		var agent = getAgent('Artemis', 10);
+		it('should be able to have its health set', mock.inject(function (getAgent) {
+			var agent = getAgent('Artemis', 10);
 
-		expect(agent.hp).toBe(10);
-	}));
+			expect(agent.hp).toBe(10);
+		}));
 
-	it('should have increasing id numbers', mock.inject(function (getAgent) {
-		var agent1 = getAgent('Artemis'),
-			agent2 = getAgent('Beatrice');
+		it('should have increasing id numbers', mock.inject(function (getAgent) {
+			var agent1 = getAgent('Artemis'),
+				agent2 = getAgent('Beatrice');
 
-		expect(agent1.id).toBeLessThan(agent2.id);
-	}));
+			expect(agent1.id).toBeLessThan(agent2.id);
+		}));
 
-	it('should be able to have a weapon set', mock.inject(function (getAgent) {
-		var agent = getAgent('Artemis');
+		it('should be able to have a weapon set', mock.inject(function (getAgent) {
+			var agent = getAgent('Artemis');
 
-		agent.setWeapon({
-			type: 'sword'
-		});
+			agent.setWeapon({
+				type: 'sword'
+			});
 
-		expect(agent.weapon).toBeDefined();
-		expect(agent.weapon.type).toBe('sword');
-	}));
+			expect(agent.weapon).toBeDefined();
+			expect(agent.weapon.type).toBe('sword');
+		}));
 
-	it('should do a skill check on the weapon', mock.inject(function (getAgent) {
-		var agent = getAgent('Artemis');
+		it('should do a skill check on the weapon', mock.inject(function (getAgent) {
+			var agent = getAgent('Artemis');
 
-		agent.setWeapon({
-			type: 'sword'
-		});
+			agent.setWeapon({
+				type: 'sword'
+			});
 
-		agent.learnSkill('sword', {
-			name: 'sword',
-			skillCheck: jasmine.createSpy()
-		});
+			agent.learnSkill('sword', {
+				name: 'sword',
+				skillCheck: jasmine.createSpy()
+			});
 
-		agent.weaponSkillCheck();
+			agent.weaponSkillCheck();
 
-		expect(agent.skills.sword.skillCheck).toHaveBeenCalledWith(0);
-	}));
+			expect(agent.skills.sword.skillCheck).toHaveBeenCalledWith(0);
+		}));
+	});
 });

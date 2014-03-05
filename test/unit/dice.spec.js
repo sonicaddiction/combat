@@ -2,7 +2,7 @@ var mock = require('ng-di/mock');
 
 require('../../src/dice.js');
 
-describe('dice', function () {
+describe('combat.dice', function () {
 	var randomNumber = jasmine.createSpy();
 	beforeEach(mock.module('combat.dice'));
 

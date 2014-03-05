@@ -1,6 +1,6 @@
 var di = require('ng-di');
 
-di.module('combat.agent-factory', [
+di.module('combat.agentFactory', [
 		'combat.agent',
 		'combat.weapon',
 		'combat.skill'
