@@ -72,10 +72,25 @@ di.module('combat.round', [])
 
 			agent.recieveDamage(damage);
 
-			this.checkForDeath(agent);
+			this.checkIfDead(agent);
+
+			this.checkIfStunned(agent, damage);
 		};
 
-		Round.prototype.checkForDeath = function (agent) {
+		Round.prototype.checkIfStunned = function (agent, damage) {
+			var shookItOff = agent.skills.toughness.skillCheckVs(damage);
+
+			if (!shookItOff) {
+				this.looseAllActions(agent);
+				agent.status.stunned = true;
+			}
+		};
+
+		Round.prototype.looseAllActions = function (agen) {
+			//TODO: implement
+		};
+
+		Round.prototype.checkIfDead = function (agent) {
 			if (agent.hp < 0) {
 				console.log(agent.name, 'dies from the wounds');
 				agent.status.dead = true;

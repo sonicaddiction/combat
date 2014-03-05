@@ -16,6 +16,7 @@ di.module('combat.agentFactory', [
 
 			fighter.learnSkill('sword', getSkill('sword', 10));
 			fighter.learnSkill('initiative', getSkill('initiative', 10));
+			fighter.learnSkill('initiative', getSkill('toughness', 5));
 
 			return fighter;
 		};

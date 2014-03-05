@@ -112,13 +112,19 @@ describe('combat.round', function () {
 					name: 'Anubis', weaponSkillCheck: jasmine.createSpy('attacker weaponSkillCheck'),
 					recieveDamage: jasmine.createSpy('attacker recieveDamage'),
 					status: {},
-					weapon: {}
+					weapon: {},
+					skills: {
+						toughness: jasmine.createSpyObj('aToughness', ['skillCheckVs'])
+					}
 				};
 				defender = {
 					name: 'Balusifer', weaponSkillCheck: jasmine.createSpy('defender weaponSkillCheck'),
 					recieveDamage: jasmine.createSpy('defender recieveDamage'),
 					status: {},
-					weapon: {}
+					weapon: {},
+					skills: {
+						toughness: jasmine.createSpyObj('bToughness', ['skillCheckVs'])
+					}
 				};
 				round = newRound();
 			}));
@@ -145,8 +151,12 @@ describe('combat.round', function () {
 						damage: 1
 					},
 					agent = {
-						recieveDamage: jasmine.createSpy()
+						recieveDamage: jasmine.createSpy(),
+						skills: jasmine.createSpyObj('skills', ['toughness']),
+						status: {}
 					};
+
+				agent.skills.toughness.skillCheckVs = jasmine.createSpy();
 
 				round.dealDamage(agent, weapon);
 
@@ -158,14 +168,33 @@ describe('combat.round', function () {
 					almostDead = { hp: 0, status: {} },
 					aliveAgent = { hp: 1, status: {} }
 
-				round.checkForDeath(deadAgent);
-				round.checkForDeath(almostDead);
-				round.checkForDeath(aliveAgent);
+				round.checkIfDead(deadAgent);
+				round.checkIfDead(almostDead);
+				round.checkIfDead(aliveAgent);
 
 				expect(deadAgent.status.dead).toBeTruthy();
 				expect(almostDead.status.dead).toBeFalsy();
 				expect(aliveAgent.status.dead).toBeFalsy();
 			});
+
+			it('should check if an agent got stunned by a hit', function () {
+				var agent = {
+						skills: {},
+						status: {}
+					},
+					damage = jasmine.createSpyObj('damage', ['damageDice']);
+
+				agent.skills.toughness = jasmine.createSpyObj('toughness', ['skillCheckVs']);
+
+				agent.skills.toughness.skillCheckVs.andReturn(true);
+				round.checkIfStunned(agent, damage);
+				expect(agent.status.stunned).toBeFalsy();
+
+				agent.skills.toughness.skillCheckVs.andReturn(false);
+				round.checkIfStunned(agent, damage);
+				expect(agent.status.stunned).toBe(true);
+			});
+
 		});
 	});
 });
