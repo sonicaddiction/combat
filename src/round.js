@@ -67,6 +67,21 @@ di.module('combat.round', [])
 			});
 		};
 
+		Round.prototype.dealDamage = function (agent, weapon) {
+			var damage = weapon.damage;
+
+			agent.recieveDamage(damage);
+
+			this.checkForDeath(agent);
+		};
+
+		Round.prototype.checkForDeath = function (agent) {
+			if (agent.hp < 0) {
+				console.log(agent.name, 'dies from the wounds');
+				agent.status.dead = true;
+			}
+		};
+
 		Round.prototype.performAttack = function (attack) {
 			var successfullAttack,
 				successfulBlock,
@@ -85,7 +100,7 @@ di.module('combat.round', [])
 
 			if (successfullAttack && ! successfulBlock) {
 				console.log(attacker.name, 'hits', defender.name);
-				defender.recieveDamage(attacker.weapon.damage);
+				this.dealDamage(defender, attacker.weapon);
 			} else if (successfullAttack && successfulBlock) {
 				console.log(defender.name, 'blocks the attack of', attacker.name);
 			} else if (!successfullAttack && successfulBlock) {

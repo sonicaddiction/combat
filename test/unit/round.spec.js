@@ -123,7 +123,7 @@ describe('combat.round', function () {
 				round = newRound();
 			}));
 
-			it('should hit if the attacker succeeds and the blocker fails', mock.inject(function (newRound) {
+			it('should hit if the attacker succeeds and the blocker fails', function () {
 				attack = new mockData.MockAttack(attacker, defender);
 				block = new mockData.MockBlock(attacker, defender);
 
@@ -138,7 +138,34 @@ describe('combat.round', function () {
 				round.performAttacks();
 
 				expect(defender.recieveDamage).toHaveBeenCalled();
-			}));
+			});
+
+			it('should apply damage to an agent', function () {
+				var weapon = {
+						damage: 1
+					},
+					agent = {
+						recieveDamage: jasmine.createSpy()
+					};
+
+				round.dealDamage(agent, weapon);
+
+				expect(agent.recieveDamage).toHaveBeenCalled();
+			});
+
+			it('should check if an agent is alive or not', function () {
+				var deadAgent = { hp: -1, status: {} },
+					almostDead = { hp: 0, status: {} },
+					aliveAgent = { hp: 1, status: {} }
+
+				round.checkForDeath(deadAgent);
+				round.checkForDeath(almostDead);
+				round.checkForDeath(aliveAgent);
+
+				expect(deadAgent.status.dead).toBeTruthy();
+				expect(almostDead.status.dead).toBeFalsy();
+				expect(aliveAgent.status.dead).toBeFalsy();
+			});
 		});
 	});
 });

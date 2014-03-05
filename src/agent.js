@@ -32,11 +32,6 @@ di.module('combat.agent', [])
 
 		Agent.prototype.recieveDamage = function (damage) {
 			this.hp = this.hp - damage;
-
-			if (this.hp < 0) {
-				console.log(this.name, 'dies from the wounds');
-				this.status.dead = true;
-			}
 		};
 
 		return function (name, hp) {
