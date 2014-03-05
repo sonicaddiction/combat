@@ -3,8 +3,6 @@ var mock = require('ng-di/mock'),
 
 require('../../src/skill.js');
 
-di.module('combat.dice', []);
-
 describe('skill', function () {
 	beforeEach(mock.module('combat.skill'));
 
